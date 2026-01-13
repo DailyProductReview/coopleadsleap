@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Not Interested</title>
+    <title>Skip This</title>
     <style>
         * {
             margin: 0;
@@ -12,213 +12,194 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #000;
-            color: white;
-            min-height: 100vh;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #111;
+            color: #fff;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 20px;
             overflow: hidden;
         }
         
         .container {
             position: relative;
-            max-width: 700px;
+            max-width: 800px;
             padding: 40px;
         }
         
-        /* Minimalistischer Strikethrough Effekt */
-        .strikethrough {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: #ff4757;
-            transform: rotate(-5deg);
-            z-index: 1;
-            opacity: 0.9;
-            box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
-        }
-        
-        .main-title {
+        .main-text {
             font-size: 5rem;
-            font-weight: 900;
-            margin-bottom: 30px;
+            font-weight: 800;
             line-height: 1;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 40px;
             letter-spacing: -2px;
-            text-transform: uppercase;
+            opacity: 0.3;
+            transition: opacity 0.5s;
         }
         
-        /* Subtile Hover-Änderung */
-        .main-title:hover {
-            opacity: 0.7;
-            cursor: not-allowed;
+        .main-text.active {
+            opacity: 1;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
         }
         
-        /* Der einzige Button - maximal fokussiert */
-        .click-btn {
-            background: transparent;
-            color: #00ff88;
-            border: 3px solid #00ff88;
-            padding: 25px 70px;
-            font-size: 1.8rem;
-            font-weight: 700;
+        /* Der einzige Button - ultra dominant */
+        .single-btn {
+            background: linear-gradient(45deg, #00ffcc, #00ccff);
+            color: #000;
+            border: none;
+            padding: 30px 100px;
+            font-size: 2.2rem;
+            font-weight: 900;
             border-radius: 0;
             cursor: pointer;
-            margin-top: 40px;
             position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
+            transition: all 0.3s;
+            animation: glow 2s infinite alternate;
         }
         
-        .click-btn:hover {
-            background: rgba(0, 255, 136, 0.1);
-            box-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+        @keyframes glow {
+            from {
+                box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
+            }
+            to {
+                box-shadow: 0 15px 50px rgba(0, 255, 255, 0.8),
+                            0 0 60px rgba(0, 255, 255, 0.3);
+            }
+        }
+        
+        .single-btn:hover {
             transform: scale(1.05);
+            background: linear-gradient(45deg, #00ffaa, #0099ff);
         }
         
-        .click-btn:active {
+        .single-btn:active {
             transform: scale(0.98);
         }
         
-        .click-btn::after {
-            content: '← Seriously, click';
+        /* Countdown - 3 Sekunden für Entscheidung */
+        .countdown {
             position: absolute;
             top: -30px;
-            right: 10px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            animation: blink 2s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-        
-        /* Ultra-minimaler Mouse-Follower */
-        .cursor-hint {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #00ff88;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff4444;
+            font-size: 1rem;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.5s;
         }
         
-        /* Responsive */
+        .countdown.show {
+            opacity: 1;
+        }
+        
+        /* Mobile Optimierung */
         @media (max-width: 768px) {
-            .main-title {
+            .main-text {
                 font-size: 3.5rem;
             }
             
-            .click-btn {
-                padding: 20px 50px;
-                font-size: 1.4rem;
-            }
-            
-            .strikethrough {
-                height: 6px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 2.8rem;
-            }
-            
-            .click-btn {
-                padding: 18px 40px;
-                font-size: 1.2rem;
-                letter-spacing: 2px;
+            .single-btn {
+                padding: 25px 60px;
+                font-size: 1.8rem;
+                width: 90%;
             }
             
             .container {
                 padding: 20px;
             }
         }
+        
+        @media (max-width: 480px) {
+            .main-text {
+                font-size: 2.8rem;
+            }
+            
+            .single-btn {
+                padding: 20px 40px;
+                font-size: 1.5rem;
+                width: 95%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="cursor-hint" id="cursorHint"></div>
-    
     <div class="container">
-        <div class="strikethrough"></div>
+        <div class="countdown" id="countdown">3</div>
         
-        <h1 class="main-title" id="mainTitle">
-            Not Interested
-        </h1>
+        <div class="main-text" id="mainText">
+            Not<br>For<br>You
+        </div>
         
-        <button class="click-btn" id="actionBtn">
-            Click Anyway
+        <button class="single-btn" id="singleBtn">
+            Prove Me Wrong
         </button>
     </div>
 
     <script>
-        // Einfacher Mouse-Follower
-        const cursorHint = document.getElementById('cursorHint');
+        // 3-Sekunden Countdown starten
+        let countdownValue = 3;
+        const countdownEl = document.getElementById('countdown');
+        const mainText = document.getElementById('mainText');
         
-        document.addEventListener('mousemove', (e) => {
-            cursorHint.style.left = e.clientX + 'px';
-            cursorHint.style.top = e.clientY + 'px';
-            cursorHint.style.opacity = '1';
-        });
-        
-        // Cursor verstecken, wenn über Button
-        document.getElementById('actionBtn').addEventListener('mouseenter', () => {
-            cursorHint.style.opacity = '0';
-        });
-        
-        document.getElementById('actionBtn').addEventListener('mouseleave', () => {
-            cursorHint.style.opacity = '1';
-        });
-        
-        // Button Click - mit Verzögerung für psychologische Wirkung
-        document.getElementById('actionBtn').addEventListener('click', function() {
-            // Kurzes "Zögern" für Spannung
-            this.style.borderColor = '#ff4757';
-            this.style.color = '#ff4757';
-            this.textContent = 'Interesting...';
+        // Countdown starten
+        setTimeout(() => {
+            countdownEl.classList.add('show');
             
-            setTimeout(() => {
-                this.textContent = 'Redirecting →';
-                this.style.background = 'rgba(255, 71, 87, 0.1)';
+            const countdownInterval = setInterval(() => {
+                countdownValue--;
+                countdownEl.textContent = countdownValue;
                 
-                // Redirect
-                setTimeout(() => {
-                    window.location.href = 'https://lltrco.com/?r=sandyarta';
-                }, 800);
-            }, 400);
+                if (countdownValue <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownEl.textContent = "Time's up";
+                    countdownEl.style.color = "#ff0000";
+                    
+                    // Fade out Text nach Timeout
+                    setTimeout(() => {
+                        mainText.style.opacity = "0.1";
+                        mainText.textContent = "You waited too long";
+                    }, 1000);
+                }
+            }, 1000);
+        }, 1000);
+        
+        // EINZIGER Klick - direkt zum Link
+        document.getElementById('singleBtn').addEventListener('click', function() {
+            // Sofortige visuelle Bestätigung
+            this.style.background = "linear-gradient(45deg, #00ff00, #00ff88)";
+            this.style.boxShadow = "0 0 60px rgba(0, 255, 0, 0.8)";
+            this.textContent = "✓ Smart Choice";
+            
+            // Text ändern zur Bestätigung
+            mainText.classList.add('active');
+            mainText.textContent = "Good\nDecision";
+            
+            // Countdown stoppen und verstecken
+            countdownEl.classList.remove('show');
+            
+            // Sofort weiterleiten (keine Verzögerung)
+            setTimeout(() => {
+                window.location.href = 'https://lltrco.com/?r=sandyarta';
+            }, 300);
         });
         
-        // Titel ändert sich nur 1x beim Hover für Überraschung
-        const title = document.getElementById('mainTitle');
-        let changed = false;
+        // Page-Exit Intent: Wenn Maus oben rausgeht
+        let hasExited = false;
         
-        title.addEventListener('mouseenter', () => {
-            if (!changed) {
-                setTimeout(() => {
-                    title.textContent = 'Actually...';
-                    title.style.color = '#00ff88';
-                    title.style.cursor = 'pointer';
-                    
-                    // Klick auf Titel führt auch zum Link
-                    title.addEventListener('click', () => {
-                        window.location.href = 'https://lltrco.com/?r=sandyarta';
-                    });
-                }, 300);
-                changed = true;
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY <= 0 && !hasExited) {
+                hasExited = true;
+                mainText.textContent = "Leaving?\nLast Chance...";
+                mainText.style.opacity = "1";
+                mainText.style.color = "#ff4444";
+                
+                // Button pulsiert stärker
+                document.getElementById('singleBtn').style.animation = "glow 0.5s infinite alternate";
             }
         });
     </script>
