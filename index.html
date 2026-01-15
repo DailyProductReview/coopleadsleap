@@ -1,84 +1,548 @@
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Not For You</title>
+    <title>World of Ads - Click Ads to Enter</title>
     <style>
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box; 
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #000;
-            color: white;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            background-color: #0a0e17;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(28, 58, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(200, 30, 60, 0.1) 0%, transparent 20%);
         }
         
         .container {
-            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
-        .text {
-            font-size: 4rem;
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8d9aa6;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background-color: rgba(30, 35, 56, 0.8);
+            border-radius: 10px;
+            padding: 15px 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .instruction-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .icon {
+            background-color: #e22121;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            margin-bottom: 40px;
-            line-height: 1.2;
         }
         
-        .button {
-            background: #ff0000;
+        .ad-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .ad-slot {
+            background-color: rgba(20, 25, 40, 0.8);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-slot:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(226, 33, 33, 0.3);
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(226, 33, 33, 0.2);
+            color: #e22121;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .ad-content {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .ad-click-instruction {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #8d9aa6;
+            font-style: italic;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #e22121, #ff5a5a);
             color: white;
             border: none;
-            padding: 25px 80px;
-            font-size: 1.8rem;
-            font-weight: bold;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(226, 33, 33, 0.3);
         }
         
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(226, 33, 33, 0.4);
+        }
+        
+        .btn-refresh {
+            background: linear-gradient(to right, #1a6dbb, #4facfe);
+            box-shadow: 0 5px 15px rgba(26, 109, 187, 0.3);
+        }
+        
+        .btn-refresh:hover {
+            box-shadow: 0 8px 20px rgba(26, 109, 187, 0.4);
+        }
+        
+        .btn i {
+            font-size: 1.2rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background-color: rgba(30, 35, 56, 0.6);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4facfe;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #8d9aa6;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #8d9aa6;
+            font-size: 0.9rem;
+        }
+        
+        .ad-placeholder {
+            color: #8d9aa6;
+            font-style: italic;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        /* Animation for ad refresh */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .text {
-                font-size: 3rem;
+            h1 {
+                font-size: 2.5rem;
             }
             
-            .button {
-                padding: 20px 60px;
-                font-size: 1.5rem;
+            .ad-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
             }
         }
         
         @media (max-width: 480px) {
-            .text {
-                font-size: 2.5rem;
+            h1 {
+                font-size: 2rem;
             }
             
-            .button {
-                padding: 18px 50px;
-                font-size: 1.3rem;
-                width: 100%;
+            .ad-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="text">
-            Not<br>
-            For<br>
-            You
-        </div>
+        <header>
+            <h1>WORLD OF ADS</h1>
+            <p class="subtitle">Discover, Click, Explore - Your Gateway to Digital Advertising</p>
+            
+            <div class="instructions">
+                <div class="instruction-item">
+                    <div class="icon"><i class="fas fa-mouse-pointer"></i></div>
+                    <span>Click on any ad to enter the advertised website</span>
+                </div>
+                <div class="instruction-item">
+                    <div class="icon"><i class="fas fa-sync-alt"></i></div>
+                    <span>Refresh the page to load new advertisements</span>
+                </div>
+                <div class="instruction-item">
+                    <div class="icon"><i class="fas fa-bullseye"></i></div>
+                    <span>Each ad is a gateway to unique content and offers</span>
+                </div>
+            
+        </main>
         
-        <button class="button" onclick="window.open('https://lltrco.com/?r=sandyarta', '_blank')">
-            PROVE ME WRONG
-        </button>
+        
     </div>
+
+    <!-- Ad Scripts - Inserted 6 times as requested -->
+    <script data-cfasync="false">
+        // First ad script
+        ll_r="sandyarta";
+        ll_bc="#ffffff";
+        ll_hc="#e22121";
+        ll_tc="#555a69";
+        ll_cc="#8d9aa6";
+        ll_dc="#8891a8";
+        ll_w="";
+        ll_nf="0";
+        ll_nc="1";
+        ll_nh="0";
+        ll_nm="0";
+        ll_np="1";
+        ll_pa="0";
+        ll_nt="0";
+        ll_wt="1";
+        ll_fw="1";
+        ll_n="6";
+        ll_cl="";
+        ll_s="w";
+    </script>
+    <script data-cfasync="false" src="https://w.leadsleap.com/js.js"></script>
+
+    <script data-cfasync="false">
+        // Second ad script
+        ll_r="sandyarta";
+        ll_bc="#ffffff";
+        ll_hc="#e22121";
+        ll_tc="#555a69";
+        ll_cc="#8d9aa6";
+        ll_dc="#8891a8";
+        ll_w="";
+        ll_nf="0";
+        ll_nc="1";
+        ll_nh="0";
+        ll_nm="0";
+        ll_np="1";
+        ll_pa="0";
+        ll_nt="0";
+        ll_wt="1";
+        ll_fw="1";
+        ll_n="6";
+        ll_cl="";
+        ll_s="w";
+    </script>
+    <script data-cfasync="false" src="https://w.leadsleap.com/js.js"></script>
+
+    <script data-cfasync="false">
+        // Third ad script
+        ll_r="sandyarta";
+        ll_bc="#ffffff";
+        ll_hc="#e22121";
+        ll_tc="#555a69";
+        ll_cc="#8d9aa6";
+        ll_dc="#8891a8";
+        ll_w="";
+        ll_nf="0";
+        ll_nc="1";
+        ll_nh="0";
+        ll_nm="0";
+        ll_np="1";
+        ll_pa="0";
+        ll_nt="0";
+        ll_wt="1";
+        ll_fw="1";
+        ll_n="6";
+        ll_cl="";
+        ll_s="w";
+    </script>
+    <script data-cfasync="false" src="https://w.leadsleap.com/js.js"></script>
+
+    <script data-cfasync="false">
+        // Fourth ad script
+        ll_r="sandyarta";
+        ll_bc="#ffffff";
+        ll_hc="#e22121";
+        ll_tc="#555a69";
+        ll_cc="#8d9aa6";
+        ll_dc="#8891a8";
+        ll_w="";
+        ll_nf="0";
+        ll_nc="1";
+        ll_nh="0";
+        ll_nm="0";
+        ll_np="1";
+        ll_pa="0";
+        ll_nt="0";
+        ll_wt="1";
+        ll_fw="1";
+        ll_n="6";
+        ll_cl="";
+        ll_s="w";
+    </script>
+    <script data-cfasync="false" src="https://w.leadsleap.com/js.js"></script>
+
+    <script data-cfasync="false">
+        // Fifth ad script
+        ll_r="sandyarta";
+        ll_bc="#ffffff";
+        ll_hc="#e22121";
+        ll_tc="#555a69";
+        ll_cc="#8d9aa6";
+        ll_dc="#8891a8";
+        ll_w="";
+        ll_nf="0";
+        ll_nc="1";
+        ll_nh="0";
+        ll_nm="0";
+        ll_np="1";
+        ll_pa="0";
+        ll_nt="0";
+        ll_wt="1";
+        ll_fw="1";
+        ll_n="6";
+        ll_cl="";
+        ll_s="w";
+    </script>
+    <script data-cfasync="false" src="https://w.leadsleap.com/js.js"></script>
+
+    <script data-cfasync="false">
+        // Sixth ad script
+        ll_r="sandyarta";
+        ll_bc="#ffffff";
+        ll_hc="#e22121";
+        ll_tc="#555a69";
+        ll_cc="#8d9aa6";
+        ll_dc="#8891a8";
+        ll_w="";
+        ll_nf="0";
+        ll_nc="1";
+        ll_nh="0";
+        ll_nm="0";
+        ll_np="1";
+        ll_pa="0";
+        ll_nt="0";
+        ll_wt="1";
+        ll_fw="1";
+        ll_n="6";
+        ll_cl="";
+        ll_s="w";
+    </script>
+    <script data-cfasync="false" src="https://w.leadsleap.com/js.js"></script>
+
+    <!-- Page functionality script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const refreshBtn = document.getElementById('refreshBtn');
+            const enterRandomBtn = document.getElementById('enterRandomBtn');
+            const totalClicksElement = document.getElementById('totalClicks');
+            const lastRefreshElement = document.getElementById('lastRefresh');
+            const adSlots = document.querySelectorAll('.ad-slot');
+            
+            let totalClicks = 0;
+            let lastRefreshTime = Date.now();
+            let refreshInterval;
+            
+            // Initialize
+            updateLastRefreshTime();
+            startRefreshTimer();
+            
+            // Refresh button functionality
+            refreshBtn.addEventListener('click', function() {
+                refreshAds();
+            });
+            
+            // Enter random ad button functionality
+            enterRandomBtn.addEventListener('click', function() {
+                enterRandomAd();
+            });
+            
+            // Track clicks on ad slots
+            adSlots.forEach(slot => {
+                slot.addEventListener('click', function() {
+                    totalClicks++;
+                    totalClicksElement.textContent = totalClicks;
+                    
+                    // Visual feedback for click
+                    this.style.transform = 'scale(0.98)';
+                    this.style.boxShadow = '0 0 20px rgba(226, 33, 33, 0.5)';
+                    
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        this.style.boxShadow = '';
+                    }, 200);
+                    
+                    // In a real implementation, this would redirect to the ad's URL
+                    // For this demo, we'll simulate it with an alert
+                    const adNumber = this.querySelector('.ad-label').textContent;
+                    alert(`In a real implementation, this would redirect you to the website advertised in ${adNumber}. For this demo, we're staying on the page.`);
+                });
+            });
+            
+            // Function to simulate refreshing ads
+            function refreshAds() {
+                // Visual feedback
+                refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+                refreshBtn.disabled = true;
+                
+                // Reset timer
+                lastRefreshTime = Date.now();
+                updateLastRefreshTime();
+                
+                // Add animation to ad slots
+                adSlots.forEach(slot => {
+                    slot.classList.remove('fade-in');
+                    void slot.offsetWidth; // Trigger reflow
+                    slot.classList.add('fade-in');
+                });
+                
+                // In a real implementation, this would reload the ad scripts
+                // For this demo, we'll simulate it
+                setTimeout(() => {
+                    refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Ads';
+                    refreshBtn.disabled = false;
+                    
+                    // Update ads viewed count
+                    document.getElementById('adsViewed').textContent = 
+                        parseInt(document.getElementById('adsViewed').textContent) + 6;
+                }, 800);
+            }
+            
+            // Function to enter a random ad
+            function enterRandomAd() {
+                const randomAdIndex = Math.floor(Math.random() * adSlots.length);
+                const randomAd = adSlots[randomAdIndex];
+                
+                // Simulate click on random ad
+                randomAd.click();
+            }
+            
+            // Function to update the last refresh time display
+            function updateLastRefreshTime() {
+                const now = Date.now();
+                const secondsSinceRefresh = Math.floor((now - lastRefreshTime) / 1000);
+                lastRefreshElement.textContent = secondsSinceRefresh;
+            }
+            
+            // Start timer to update last refresh time
+            function startRefreshTimer() {
+                clearInterval(refreshInterval);
+                refreshInterval = setInterval(updateLastRefreshTime, 1000);
+            }
+            
+            // Simulate initial ad loading
+            setTimeout(() => {
+                document.querySelectorAll('.ad-placeholder').forEach(placeholder => {
+                    placeholder.textContent = "Advertisement loaded - Click to explore!";
+                });
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
